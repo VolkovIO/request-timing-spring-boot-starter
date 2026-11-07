@@ -1,0 +1,43 @@
+plugins {
+    id 'java-library'  // Собирает обычную Java-библиотеку
+    id 'maven-publish' // Добавляет задачи публикации в Maven-совместимые репозитории
+}
+
+group = 'ru.almetsc'
+version = '1.0.0'
+
+java {
+    withSourcesJar() // Прикладывает JAR с исходниками
+    withJavadocJar() // Прикладывает JAR с Javadoc
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // Позволяет собрать совместимый с Java 17 байткод при использовании более новой JDK
+    options.release = 17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'org.springframework.boot:spring-boot-starter-web:3.5.13'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            // Указывает публиковать Java-компонент и сведения о его зависимостях
+            from components.java
+
+
+            artifactId = 'request-timing-spring-boot-starter'
+
+            pom {
+                name = 'Request Timing Spring Boot Starter'
+                description = 'Automatic HTTP request timing for Spring Boot'
+                url = 'https://almetsc.ru'
+            }
+        }
+    }
+}

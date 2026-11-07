@@ -1,0 +1,2 @@
+//Эта строка определяет название Gradle-проекта и, по умолчанию, его artifactId при публикации.
+rootProject.name = 'request-timing-spring-boot-starter'
